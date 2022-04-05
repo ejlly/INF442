@@ -1,0 +1,1 @@
+void naive_dbscan(Graph& g);
