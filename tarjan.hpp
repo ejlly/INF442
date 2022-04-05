@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stack>
+#include <algorithm>
 #include "graph.hpp"
 
 std::vector<std::vector<int>> tarjan(Graph g);
