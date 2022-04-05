@@ -1,3 +1,6 @@
+#ifndef MY_GRAPH_HPP
+#define MY_GRAPH_HPP
+
 #include <vector>
 
 class Graph {
@@ -9,3 +12,5 @@ class Graph {
     Graph(int n, double p);  // ER
     void print();
 };
+
+#endif
