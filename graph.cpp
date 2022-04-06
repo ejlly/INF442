@@ -43,3 +43,13 @@ void Graph::print() {
         std::cout << std::endl;
     }
 }
+
+std::vector<int> Graph::epsilonNeighbours(int node, double eps) {
+    std::vector<int> result;
+    for (Edge e : neighbours[node]) {
+        if (e.length < eps) {
+            result.push_back(e.to);
+        }
+    }
+    return result;
+}

@@ -2,4 +2,11 @@
 
 #include "graph.hpp"
 
-void naive_dbscan(Graph& g, double eps, int M);
+class DbscanParameters {
+   public:
+    double eps;
+    int M;
+    DbscanParameters(double eps, int M);
+};
+
+void naive_dbscan(Graph& g, DbscanParameters parameters);
