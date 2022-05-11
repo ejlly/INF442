@@ -6,7 +6,7 @@
 
 DbscanParameters::DbscanParameters(double maxDist_, int minPoints_) : maxDist(maxDist_), minPoints(minPoints_) {}
 
-void naive_dbscan(Graph& g, DbscanParameters parameters) {
+void naive_dbscan(Graph& g, const DbscanParameters& parameters) {
     int currentCluster = 0;
     bool visited[g.n];
     std::fill_n(visited, g.n, false);
@@ -26,12 +26,12 @@ void naive_dbscan(Graph& g, DbscanParameters parameters) {
         for (int i = 0; i < nodeNeighbours.size(); i++) {
             int neighbour = nodeNeighbours[i];
 
-            if (visited[neighbour]) {
-                continue;
-            }
-
             if (g.clusters[neighbour] == -1) {
                 g.clusters[neighbour] = currentCluster;
+            }
+            
+            if (visited[neighbour]) {
+                continue;
             }
 
             visited[neighbour] = true;

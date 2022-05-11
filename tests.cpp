@@ -2,6 +2,7 @@
 
 #include "dbscan.hpp"
 #include "graph.hpp"
+#include "twoDGraph.hpp"
 
 int main() {
     std::cout << "Hello world" << std::endl;
@@ -15,10 +16,14 @@ int main() {
     naive_dbscan(g, DbscanParameters(1.5, 1));
     for (int c : g.clusters) std::cout << c << " ";
     std::cout << std::endl;
-    // naive_dbscan(g2, DbscanParameters(1.5, 0));
-    // for (int c : g.clusters) std::cout << c << " ";
-    // std::cout << std::endl;
-    // naive_dbscan(g3, DbscanParameters(1.5, 0));
-    // for (int c : g.clusters) std::cout << c << " ";
-    // std::cout << std::endl;
+    naive_dbscan(g2, DbscanParameters(1.5, 0));
+    for (int c : g.clusters) std::cout << c << " ";
+    std::cout << std::endl;
+    naive_dbscan(g3, DbscanParameters(1.5, 0));
+    for (int c : g.clusters) std::cout << c << " ";
+    std::cout << std::endl;
+
+    TwoDGraph g2D(30);
+    naive_dbscan(g2D, DbscanParameters(0.1, 3));
+    g2D.draw(40);
 }
