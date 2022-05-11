@@ -19,5 +19,5 @@ class Graph {
     Graph(int n);            // Empty graph
     Graph(int n, double p);  // ER
     void print();
-    std::vector<int> epsilonNeighbours(int node, double eps);
+    std::vector<int> epsilonNeighbourhood(int node, double maxDist);
 };

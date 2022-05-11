@@ -4,7 +4,7 @@
 
 #include "graph.hpp"
 
-DbscanParameters::DbscanParameters(double eps_, int M_) : eps(eps_), M(M_) {}
+DbscanParameters::DbscanParameters(double maxDist_, int minPoints_) : maxDist(maxDist_), minPoints(minPoints_) {}
 
 void naive_dbscan(Graph& g, DbscanParameters parameters) {
     int currentCluster = 0;
@@ -14,9 +14,9 @@ void naive_dbscan(Graph& g, DbscanParameters parameters) {
         if (visited[node]) continue;
 
         visited[node] = true;
-        std::vector<int> nodeNeighbours = g.epsilonNeighbours(node, parameters.eps);
+        std::vector<int> nodeNeighbours = g.epsilonNeighbourhood(node, parameters.maxDist);
 
-        if (nodeNeighbours.size() < parameters.M) {
+        if (nodeNeighbours.size() < parameters.minPoints) {
             g.clusters[node] = -1;
             continue;
         }
@@ -25,38 +25,28 @@ void naive_dbscan(Graph& g, DbscanParameters parameters) {
 
         for (int i = 0; i < nodeNeighbours.size(); i++) {
             int neighbour = nodeNeighbours[i];
-            if (visited[neighbour]) {
-                // By default nodes are labeled as noise
-                if (g.clusters[neighbour] == -1) {
-                    g.clusters[neighbour] = currentCluster;
-                }
 
+            if (visited[neighbour]) {
                 continue;
             }
 
-            visited[neighbour] = true;
-            std::vector<int> neighbourNeighbours = g.epsilonNeighbours(neighbour, parameters.eps);
+            if (g.clusters[neighbour] == -1) {
+                g.clusters[neighbour] = currentCluster;
+            }
 
-            // Concatenate lists
-            // Duplicates will be noticed when checking if a node has been visited
-            for (int u : neighbourNeighbours) {
-                nodeNeighbours.push_back(u);
+            visited[neighbour] = true;
+            std::vector<int> neighbourNeighbours = g.epsilonNeighbourhood(neighbour, parameters.maxDist);
+
+            // Only add neighbour's neighbours if the current neighbour is a core node
+            if (neighbourNeighbours.size() >= parameters.minPoints) {
+                // Concatenate lists
+                // Duplicates will be noticed when checking if a node has been visited
+                for (int u : neighbourNeighbours) {
+                    nodeNeighbours.push_back(u);
+                }
             }
         }
 
         currentCluster++;
     }
-}
-
-void extendCluster(Graph& g, int node, std::vector<int>& neighbours, int currentCluster, DbscanParameters parameters) {
-    g.clusters[node] = currentCluster;
-
-    // pour chaque point P' de PtsVoisins
-    //   si P' n'a pas été visité
-    //      marquer P' comme visité
-    //      PtsVoisins' = epsilonVoisinage(D, P', eps)
-    //      si tailleDe(PtsVoisins') >= MinPts
-    //         PtsVoisins = PtsVoisins U PtsVoisins'
-    //   si P' n'est membre d'aucun cluster
-    //      ajouter P' au cluster C
 }

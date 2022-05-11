@@ -4,9 +4,9 @@
 
 class DbscanParameters {
    public:
-    double eps;
-    int M;
-    DbscanParameters(double eps, int M);
+    double maxDist;
+    int minPoints;
+    DbscanParameters(double maxDist, int minPoints);
 };
 
 void naive_dbscan(Graph& g, DbscanParameters parameters);

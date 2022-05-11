@@ -44,10 +44,11 @@ void Graph::print() {
     }
 }
 
-std::vector<int> Graph::epsilonNeighbours(int node, double eps) {
+std::vector<int> Graph::epsilonNeighbourhood(int node, double maxDist) {
     std::vector<int> result;
+    result.push_back(node);
     for (Edge e : neighbours[node]) {
-        if (e.length < eps) {
+        if (e.length < maxDist) {
             result.push_back(e.to);
         }
     }
