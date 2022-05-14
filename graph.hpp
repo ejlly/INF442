@@ -1,14 +1,24 @@
-#ifndef MY_GRAPH_HPP
-#define MY_GRAPH_HPP
+#pragma once
 
 #include <vector>
 
-class Graph{
-	public:
-		std::vector<std::vector<int>> neighbours;
-		int n;
-		Graph();
-		Graph(int n);  // Empty graph
+class Edge {
+   public:
+    int from;
+    int to;
+    double length;
+    Edge(int from, int to, double length);
+    Edge(int from, int to);
 };
 
-#endif
+
+class Graph {
+   public:
+    std::vector<std::vector<Edge>> neighbours;
+    std::vector<int> clusters;  // -1 means no cluster
+    int n;
+    Graph(int n);            // Empty graph
+    Graph(int n, double p);  // ER
+    void print();
+    std::vector<int> epsilonNeighbourhood(int node, double maxDist);
+};
