@@ -74,3 +74,13 @@ vector<vector<int>> tarjan(Graph g){
 }
 
 
+void aff_cnx(std::vector<std::vector<int>> compo){
+	for(int i(0); i<compo.size(); i++){
+		std::cout << i << " : ";
+		for(int j : compo[i]){
+			std::cout << j << " ";
+		}
+		std::cout << "\n";
+	}
+}
+
