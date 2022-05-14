@@ -11,6 +11,7 @@ class Edge {
     Edge(int from, int to);
 };
 
+
 class Graph {
    public:
     std::vector<std::vector<Edge>> neighbours;
