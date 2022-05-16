@@ -46,18 +46,15 @@ Graph::Graph(std::string path) {
 
     std::string from, to;
 
-    while (true) {
-        if (file.eof()) break;
+    while (!file.eof()) {
         file >> from >> to;
 
-        auto is_seen = table.find(from);
-        if (is_seen == table.end()) {
+        if (table.count(from) == 0) {
             table[from] = last_int_seen++;
             neighbours.push_back(std::vector<Edge>());
         }
 
-        is_seen = table.find(to);
-        if (is_seen == table.end()) {
+        if (table.count(to) == 0) {
             table[to] = last_int_seen++;
             neighbours.push_back(std::vector<Edge>());
         }
