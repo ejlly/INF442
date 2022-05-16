@@ -28,7 +28,7 @@ void check_composante(int node, Context &c) {
     }
 }
 
-std::vector<std::vector<int>> tarjan(Graph g) {
+std::vector<std::vector<int>> tarjan(Graph& g) {
     Context context;
 
     int index(0);
