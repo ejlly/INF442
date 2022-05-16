@@ -9,4 +9,4 @@ class DbscanParameters {
     DbscanParameters(double maxDist, int minPoints);
 };
 
-void naive_dbscan(Graph& g, const DbscanParameters& parameters);
+void dbscan(Graph& g, const DbscanParameters& parameters);
