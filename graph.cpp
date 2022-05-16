@@ -69,9 +69,6 @@ Graph::Graph(std::string path, bool directed) {
 }
 
 void Graph::print() {
-    // TODO: fix for graphs created with Graph(std::string path);
-    //     : no clusters initialized...
-
     std::cout << "Graph with " << n << " nodes\n";
     for (int i = 0; i < n; i++) {
         std::cout << i << "in cluster" << clusters[i] << " has neighbours: ";
