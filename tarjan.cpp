@@ -52,14 +52,15 @@ std::vector<std::vector<int>> tarjan(Graph g) {
     context.connected_components = connected_components;
     context.g = g;
 
-    for (int node(0); node < g.n; node++)
+    for (int node(0); node < g.n; node++) {
         if (order[node] == -1)
             check_composante(node, context);
+    }
 
     return context.connected_components;
 }
 
-void display_connected_components(std::vector<std::vector<int>> compo) {
+void display_connected_components(std::vector<std::vector<int>>& compo) {
     for (int i(0); i < compo.size(); i++) {
         std::cout << i << " : ";
         for (int j : compo[i]) {

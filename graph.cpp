@@ -67,9 +67,6 @@ Graph::Graph(std::string path) {
 }
 
 void Graph::print() {
-    // TODO: fix for graphs created with Graph(std::string path);
-    //     : no clusters initialized...
-
     std::cout << "Graph with " << n << " nodes\n";
     for (int i = 0; i < n; i++) {
         std::cout << i << "in cluster" << clusters[i] << " has neighbours: ";
@@ -86,5 +83,22 @@ std::vector<int> Graph::epsilonNeighbourhood(int node, double maxDist) {
             result.push_back(e.to);
         }
     }
+    return result;
+}
+
+std::vector<std::vector<int>> Graph::get_components() {
+    int max_cluster_id = -1;
+    for (int i = 0; i < n; i++) {
+        max_cluster_id = std::max(clusters[i], max_cluster_id);
+    }
+
+    std::vector<std::vector<int>> result(max_cluster_id + 1);
+
+    for (int i = 0; i < n; i++) {
+        if (clusters[i] != -1) {
+            result[clusters[i]].push_back(i);
+        }
+    }
+
     return result;
 }

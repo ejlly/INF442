@@ -26,4 +26,5 @@ class Graph {
 	Graph(std::string path);
     void print();
     std::vector<int> epsilonNeighbourhood(int node, double maxDist);
+    std::vector<std::vector<int>> get_components();
 };
