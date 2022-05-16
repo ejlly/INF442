@@ -1,17 +1,5 @@
 #include "tarjan.hpp"
 
-// using namespace std;
-
-struct Context{
-	int index;
-	stack<int> pile;
-	int *order;
-	int *dfs_seen;
-	bool *on_stack;
-	vector<vector<int>> connected_components;
-	Graph g;
-};
-
 void check_composante(int node, Context &c){
 	c.order[node] = c.index;
 	c.dfs_seen[node] = c.index++;
@@ -20,17 +8,17 @@ void check_composante(int node, Context &c){
 	c.on_stack[node] = true;
 
 	for(auto end: c.g.neighbours[node]){
-		if(c.order[end] == -1){
-			check_composante(end, c);
-			c.dfs_seen[node] = min<int>(c.dfs_seen[node], c.dfs_seen[end]);
+		if(c.order[end.to] == -1){
+			check_composante(end.to, c);
+			c.dfs_seen[node] = std::min<int>(c.dfs_seen[node], c.dfs_seen[end.to]);
 		}
-		else if(c.on_stack[end]){
-			c.dfs_seen[node] = min<int>(c.dfs_seen[node], c.order[end]);
+		else if(c.on_stack[end.to]){
+			c.dfs_seen[node] = std::min<int>(c.dfs_seen[node], c.order[end.to]);
 		}
 	}
 
 	if(c.order[node] == c.dfs_seen[node]){
-		c.connected_components.push_back(vector<int>());
+		c.connected_components.push_back(std::vector<int>());
 		int tmp;
 		do{
 			tmp = c.pile.top();
@@ -38,19 +26,25 @@ void check_composante(int node, Context &c){
 			c.on_stack[tmp] = false;
 			c.connected_components.back().push_back(tmp);
 		}while(tmp != node);
+
 	}
 
 }
-vector<vector<int>> tarjan(Graph g){
+
+std::vector<std::vector<int>> tarjan(Graph g){
+	//DEBUG
+	std::cout << "Running Tarjan\n";
+	//END DEBUG
+
 	Context contexte;
 
 	int index(0);
-	stack<int> pile;
+	std::stack<int> pile;
 
 	int order[g.n], dfs_seen[g.n];
 	bool on_stack[g.n];
 
-	vector<vector<int>> connected_components;
+	std::vector<std::vector<int>> connected_components;
 
 	for(int i(0); i<g.n; i++){
 		order[i] = -1;
@@ -69,12 +63,13 @@ vector<vector<int>> tarjan(Graph g){
 	for(int node(0); node<g.n; node++)
 		if(order[node] == -1)
 			check_composante(node, contexte);
-	
-	return connected_components;
+
+	return contexte.connected_components;
 }
 
 
 void aff_cnx(std::vector<std::vector<int>> compo){
+	std::cout << "Printing :\n";
 	for(int i(0); i<compo.size(); i++){
 		std::cout << i << " : ";
 		for(int j : compo[i]){
