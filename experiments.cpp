@@ -1,7 +1,10 @@
 #include "experiments.hpp"
 
+#include <chrono>
+
 #include "dbscan.hpp"
 #include "graph.hpp"
+#include "tarjan.hpp"
 #include "utils.hpp"
 
 void do_experiment_dbscan_components_size(std::string& path) {
@@ -16,4 +19,17 @@ void do_experiment_dbscan_components_size(std::string& path) {
         for (auto& c : results) std::cout << c.size() << " ";
         std::cout << "\n";
     }
+}
+
+void do_experiment_speed(std::string& path, bool directed) {
+    Graph g(path, directed);
+
+    auto start = std::chrono::system_clock::now();
+
+    std::vector<std::vector<int>> results = tarjan(g);
+
+    auto delay = std::chrono::duration_cast<std::chrono::milliseconds>(
+                     std::chrono::system_clock::now() - start)
+                     .count();
+    std::cout << "Computed in " << delay << "ms\n";
 }

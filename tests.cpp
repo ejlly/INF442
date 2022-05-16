@@ -36,17 +36,6 @@ int main(int argc, char** argv) {
 
     // Read .edges files
     for (int i(2); i < argc; i++) {
-        Graph g(argv[i], directed);
-        // g.print();
-
-        auto start = std::chrono::system_clock::now();
-
-        std::vector<std::vector<int>> results = tarjan(g);
-
-        auto delay = std::chrono::duration_cast<std::chrono::milliseconds>(
-                         std::chrono::system_clock::now() - start)
-                         .count();
-
-        
+        std::string path = argv[i];
     }
 }
