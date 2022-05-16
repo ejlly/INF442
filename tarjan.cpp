@@ -33,7 +33,7 @@ void check_composante(int node, Context &c){
 
 std::vector<std::vector<int>> tarjan(Graph g){
 	//DEBUG
-	std::cout << "Running Tarjan\n";
+	//std::cout << "Running Tarjan\n";
 	//END DEBUG
 
 	Context contexte;
