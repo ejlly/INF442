@@ -37,7 +37,7 @@ Graph::Graph(int _n, double p) {
     }
 }
 
-Graph::Graph(std::string path) {
+Graph::Graph(std::string path, bool directed) {
     std::ifstream file(path);
 
     std::map<std::string, int> table;
@@ -60,6 +60,8 @@ Graph::Graph(std::string path) {
         }
 
         neighbours[table[from]].push_back(Edge(table[from], table[to]));
+		if(!directed)
+			neighbours[table[to]].push_back(Edge(table[to], table[from]));
     }
 
     n = last_int_seen;

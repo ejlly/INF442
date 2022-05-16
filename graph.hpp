@@ -23,7 +23,7 @@ class Graph {
 	Graph();
     Graph(int n);            // Empty graph
     Graph(int n, double p);  // ER
-	Graph(std::string path);
+	Graph(std::string path, bool directed);
     void print();
     std::vector<int> epsilonNeighbourhood(int node, double maxDist);
     std::vector<std::vector<int>> get_components();
