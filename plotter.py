@@ -26,7 +26,8 @@ import pandas as pd
 
 # For 2D experiment
 
-params = ["4_0.2", "4_0.1", "4_0.05", "16_0.1", "64_0.1"]
+# params = ["4_0.2", "4_0.1", "4_0.05", "8_0.1", "16_0.1", "64_0.1", "heuristics"]
+params = ["heuristics"]
 file_names = [f"experiments_results/2D_{p}.csv" for p in params]
 
 for file_name in file_names:

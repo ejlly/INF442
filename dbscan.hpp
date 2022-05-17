@@ -4,9 +4,9 @@
 
 class DbscanParameters {
    public:
-    double maxDist;
-    int minPoints;
-    DbscanParameters(double maxDist, int minPoints);
+    double max_dist;
+    int min_points;
+    DbscanParameters(double max_dist, int min_points);
 };
 
 void dbscan(Graph& g, const DbscanParameters& parameters);

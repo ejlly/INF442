@@ -8,3 +8,4 @@ void do_experiments_ER(const int N, const int NB_TEST, const int NB_PROB, const 
                        std::string output_path);
 void do_experiments_2D(const int M, const double EPS, const int NB_TEST, const int INCR_N, const int MAX_N,
                        std::string output_path);
+void do_experiments_2D_heuristics(const int NB_TEST, const int INCR_N, const int MAX_N, std::string output_path);

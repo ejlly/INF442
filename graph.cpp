@@ -1,5 +1,6 @@
 #include "graph.hpp"
 
+#include <algorithm>
 #include <map>
 
 #include "utils.hpp"
@@ -14,6 +15,10 @@ Edge::Edge(int _from, int _to, double _length) {
     from = _from;
     to = _to;
     length = _length;
+}
+
+bool Edge::operator<(Edge& o) {
+    return length < o.length;
 }
 
 Graph::Graph(){};
@@ -60,8 +65,8 @@ Graph::Graph(std::string path, bool directed) {
         }
 
         neighbours[table[from]].push_back(Edge(table[from], table[to]));
-		if(!directed)
-			neighbours[table[to]].push_back(Edge(table[to], table[from]));
+        if (!directed)
+            neighbours[table[to]].push_back(Edge(table[to], table[from]));
     }
 
     n = last_int_seen;
@@ -77,11 +82,11 @@ void Graph::print() {
     }
 }
 
-std::vector<int> Graph::epsilonNeighbourhood(int node, double maxDist) {
+std::vector<int> Graph::epsilon_neighbourhood(int node, double max_dist) {
     std::vector<int> result;
     result.push_back(node);
     for (Edge e : neighbours[node]) {
-        if (e.length < maxDist) {
+        if (e.length < max_dist) {
             result.push_back(e.to);
         }
     }
@@ -103,4 +108,29 @@ std::vector<std::vector<int>> Graph::get_components() {
     }
 
     return result;
+}
+
+int Graph::getGoodMinPoints() {
+    int sum_of_number_of_neighbours = 0;
+    for (int i = 0; i < n; i++) {
+        sum_of_number_of_neighbours += neighbours[i].size();
+    }
+    int avg_number_of_neighbours = std::ceil(sum_of_number_of_neighbours * 1.0 / n);
+    int sqrt_n = std::ceil(sqrt(n));
+
+    return std::min(sqrt_n / 2, avg_number_of_neighbours);
+}
+
+double Graph::get_good_max_dist(int min_points) {
+    double sum_distance_to_M_closest_point = 0;
+    int nb_relevant_points = 0;
+    for (int i = 0; i < n; i++) {
+        if (neighbours[i].size() >= min_points) {
+            std::sort(neighbours[i].begin(), neighbours[i].end());
+            sum_distance_to_M_closest_point += neighbours[i][(min_points - 1)].length;
+            nb_relevant_points++;
+        }
+    }
+    if (nb_relevant_points == 0) return -1;  // All points will be noise with this min_points parameter
+    return sum_distance_to_M_closest_point / nb_relevant_points;
 }

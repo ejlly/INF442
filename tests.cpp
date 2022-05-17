@@ -13,7 +13,8 @@ void print_usage(std::string path) {
     std::cout << "Usage : \n"
               << "For dbscan experiments: " << path << " [-d|-u] filename1 filename2 ... \n"
               << "For ER experiments: " << path << " -e  N NB_TEST NB_PROB MAX_VALUE path\n"
-              << "For dbscan experiments: " << path << " -p M EPS NB_TEST INCR_N MAX_N path\n";
+              << "For 2D experiments with given M & eps: " << path << " -p M EPS NB_TEST INCR_N MAX_N path\n"
+              << "For 2D experiments with heuristics: " << path << " -h NB_TEST INCR_N MAX_N path\n";
 }
 
 int main(int argc, char** argv) {
@@ -45,6 +46,13 @@ int main(int argc, char** argv) {
             return 0;
         }
         do_experiments_2D(atoi(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]), argv[7]);
+        return 0;
+    } else if (std::strcmp(argv[1], "-h") == 0) {
+        if (argc != 6) {
+            print_usage(argv[0]);
+            return 0;
+        }
+        do_experiments_2D_heuristics(atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
         return 0;
     } else {
         print_usage(argv[0]);
