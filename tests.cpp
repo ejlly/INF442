@@ -18,10 +18,10 @@ int main(int argc, char **argv){
 	//https://stackoverflow.com/questions/865668/parsing-command-line-arguments-in-c
 	bool directed;
 
-	if(std::strcmp(argv[1], "-d")){
+	if(std::strcmp(argv[1], "-d") == 0){
 		directed = true;
 	}
-	else if(std::strcmp(argv[1], "-u")){
+	else if(std::strcmp(argv[1], "-u") == 0){
 		directed = false;
 	}
 	else{
